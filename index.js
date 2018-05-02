@@ -11,32 +11,37 @@ app.engine('ejs',ejs.renderFile)
 //publicフォルダのスタイルシートの読み込み
 app.use(express.static('public'));
 
+//bodyparserのロード
+var bodyParser = require('body-parser');
+//urlencodedメソッドの実行(URLエンコードされたbodyを返す)
+app.use(
+    bodyParser.urlencoded(
+        //querystringを使用してエンコード
+        {extended:false}
+    )
+);
+
 //ルーティングを設定する(トップページ)
 app.get(    '/' ,   (req,res)   =>  {   //function(req,res){....}と同じ
     
-    var msg = "This is Express-app Top Page!<br>"    +   "これはトップページです。";
-    //パラメーターの設定
-    var url = '/other?name=taro&pass=yamada';
+    var msg = "This is Index Page!<br>"    +   "＊メッセージを書いて送信して下さい。";
     //index.ejsのレンダリング  
     res.render('index.ejs',{
         title:'Index',
-        content:msg,
-        link:{href:url,text:'パラメーター送信'}
+        content:msg
     });
 });
 
-//ルーティングを設定する(otherページ)
-app.get(    "/other"    ,   (req,res)   =>  {
-    //パラメーターの取り出し
-    var name = req.query.name;
-    var pass = req.query.pass;
+//ルーティングを設定する(POSTの処理)
+app.post(    "/"    ,   (req,res)   =>  {
+    //送信メッセージの取り出し
+    var input_msg = req.body.message;
     //メッセージの設定
-    var msg = "あなたは「" + name +"」<br>パスワードは「" + pass + "」です。";
+    var msg = "This is Posted Page!<br>" + "あなたは「<b>" + input_msg + "</b>」と送信しました。";
     //otherページのレンダリング
     res.render('index.ejs',{
-        title:'Other',
-        content:msg,
-        link:{href:'/',text:'＊トップへ戻る'}
+        title:'Posted',
+        content:msg
     });
 });
 
