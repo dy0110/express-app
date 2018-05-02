@@ -11,14 +11,26 @@ app.engine('ejs',ejs.renderFile)
 //publicフォルダのスタイルシートの読み込み
 app.use(express.static('public'));
 
-//ルーティングを設定する
+//ルーティングを設定する(トップページ)
 app.get(    '/' ,   (req,res)   =>  {   //function(req,res){....}と同じ
     
-    var msg = "This is Express-app Top Page!<br>"    +   "スタイルシートを利用";
+    var msg = "This is Express-app Top Page!<br>"    +   "これはトップページです。";
     //index.ejsのレンダリング  
     res.render('index.ejs',{
-        title:'Index'   ,
-            content:msg
+        title:'Index',
+        content:msg,
+        link:{href:'/other',text:'*Otherページに移動'}
+    });
+});
+
+//ルーティングを設定する(otherページ)
+app.get(    "/other"    ,   (req,res)   =>  {
+    var msg = "This is Other Page!<br>" + "これはotherページです。";
+    //otherページのレンダリング
+    res.render('index.ejs',{
+        title:'Other',
+        content:msg,
+        link:{href:'/',text:'*トップへ戻る'}
     });
 });
 
