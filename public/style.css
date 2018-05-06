@@ -18,3 +18,21 @@ p{
     line-height: 200%;
     margin: 0px 20px;
 }
+
+table{
+    margin: 20px;
+}
+
+table tr th {
+    background-color: #999999;
+    color: #f0f0f0;
+    text-align: center;
+    padding: 3px 10px;
+}
+
+table tr td {
+    background-color: #eeeeee;
+    color: #666666;
+    text-align: left;
+    padding: 3px 10px;
+}

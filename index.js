@@ -21,27 +21,23 @@ app.use(
     )
 );
 
+//テーブルのデータ
+var data = {
+    'Taro':'taro@yamada',
+    'Hanako':'hanako@flower',
+    'Sachiko':'sachiko@happy',
+    'Ichiro':'ichiro@baseball'
+}
+
 //ルーティングを設定する(トップページ)
 app.get(    '/' ,   (req,res)   =>  {   //function(req,res){....}と同じ
     
-    var msg = "This is Index Page!<br>"    +   "＊メッセージを書いて送信して下さい。";
+    var msg = "This is Index Page!<br>";
     //index.ejsのレンダリング  
     res.render('index.ejs',{
         title:'Index',
-        content:msg
-    });
-});
-
-//ルーティングを設定する(POSTの処理)
-app.post(    "/"    ,   (req,res)   =>  {
-    //送信メッセージの取り出し
-    var input_msg = req.body.message;
-    //メッセージの設定
-    var msg = "This is Posted Page!<br>" + "あなたは「<b>" + input_msg + "</b>」と送信しました。";
-    //otherページのレンダリング
-    res.render('index.ejs',{
-        title:'Posted',
-        content:msg
+        content:msg,
+        data:data
     });
 });
 
